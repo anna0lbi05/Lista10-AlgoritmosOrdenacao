@@ -180,7 +180,6 @@ print("\nINICIANDO EXPERIMENTOS\n")
 # Depois expandiremos para 10000 e 100000
 
 algoritmos = [
-    ("Bubble Sort", bubble_sort),
     ("Merge Sort", merge_sort),
     ("Heap Sort", heap_sort)
 ]
@@ -189,5 +188,5 @@ for nome, funcao in algoritmos:
     executar_teste(
         nome,
         funcao,
-        vetores[10000]
+        vetores[100000]
     )
