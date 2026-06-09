@@ -93,3 +93,48 @@ ordenado_merge, mov_merge = merge_sort(vetor_teste.copy())
 print("\nTeste Merge Sort")
 print("Vetor ordenado:", ordenado_merge)
 print("Quantidade de movimentações:", mov_merge)
+
+#Implementando o Heap Sort
+def heapify(vetor, n, i, movimentacoes):
+    maior = i
+
+    esquerda = 2 * i + 1
+    direita = 2 * i + 2
+
+    if esquerda < n and vetor[esquerda] > vetor[maior]:
+        maior = esquerda
+
+    if direita < n and vetor[direita] > vetor[maior]:
+        maior = direita
+
+    if maior != i:
+        vetor[i], vetor[maior] = vetor[maior], vetor[i]
+
+        movimentacoes[0] += 1
+
+        heapify(vetor, n, maior, movimentacoes)
+
+
+def heap_sort(vetor):
+    movimentacoes = [0]
+
+    n = len(vetor)
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(vetor, n, i, movimentacoes)
+
+    for i in range(n - 1, 0, -1):
+        vetor[i], vetor[0] = vetor[0], vetor[i]
+
+        movimentacoes[0] += 1
+
+        heapify(vetor, i, 0, movimentacoes)
+
+    return vetor, movimentacoes[0]
+
+# Teste do Heap Sort
+ordenado_heap, mov_heap = heap_sort(vetor_teste.copy())
+
+print("\nTeste Heap Sort")
+print("Vetor ordenado:", ordenado_heap)
+print("Quantidade de movimentações:", mov_heap)
