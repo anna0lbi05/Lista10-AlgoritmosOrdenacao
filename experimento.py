@@ -1,4 +1,6 @@
 import random
+import time
+import statistics
 
 tamanhos = [1000, 10000, 100000]
 vetores = {}
@@ -138,3 +140,52 @@ ordenado_heap, mov_heap = heap_sort(vetor_teste.copy())
 print("\nTeste Heap Sort")
 print("Vetor ordenado:", ordenado_heap)
 print("Quantidade de movimentações:", mov_heap)
+
+# Função para executar os testes
+def executar_teste(nome_algoritmo, funcao_algoritmo, vetor):
+    tempos = []
+    movimentacoes = 0
+
+    for _ in range(3):
+        copia_vetor = vetor.copy()
+
+        inicio = time.perf_counter()
+
+        _, movimentacoes = funcao_algoritmo(copia_vetor)
+
+        fim = time.perf_counter()
+
+        tempos.append(fim - inicio)
+
+    media = statistics.mean(tempos)
+    desvio = statistics.stdev(tempos)
+
+    print("\n" + "=" * 60)
+    print(f"Algoritmo: {nome_algoritmo}")
+    print(f"Tamanho do vetor: {len(vetor)}")
+
+    for i, tempo in enumerate(tempos, start=1):
+        print(f"Execução {i}: {tempo:.6f} s")
+
+    print(f"Tempo médio: {media:.6f} s")
+    print(f"Desvio padrão: {desvio:.6f} s")
+    print(f"Trocas/Movimentações: {movimentacoes}")
+
+
+print("\nINICIANDO EXPERIMENTOS\n")
+
+# Teste inicial apenas com 1000 elementos
+# Depois expandiremos para 10000 e 100000
+
+algoritmos = [
+    ("Bubble Sort", bubble_sort),
+    ("Merge Sort", merge_sort),
+    ("Heap Sort", heap_sort)
+]
+
+for nome, funcao in algoritmos:
+    executar_teste(
+        nome,
+        funcao,
+        vetores[1000]
+    )
