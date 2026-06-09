@@ -2,6 +2,8 @@ import random
 import time
 import statistics
 
+random.seed(42)
+
 tamanhos = [1000, 10000, 100000]
 vetores = {}
 
@@ -187,5 +189,5 @@ for nome, funcao in algoritmos:
     executar_teste(
         nome,
         funcao,
-        vetores[1000]
+        vetores[10000]
     )
