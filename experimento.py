@@ -176,12 +176,8 @@ def executar_teste(nome_algoritmo, funcao_algoritmo, vetor):
 
 print("\nINICIANDO EXPERIMENTOS\n")
 
-# Teste inicial apenas com 1000 elementos
-# Depois expandiremos para 10000 e 100000
-
 algoritmos = [
-    ("Merge Sort", merge_sort),
-    ("Heap Sort", heap_sort)
+    ("Bubble Sort", bubble_sort)
 ]
 
 for nome, funcao in algoritmos:
