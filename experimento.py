@@ -1,6 +1,7 @@
 import random
 import time
 import statistics
+import matplotlib.pyplot as plt
 
 random.seed(42)
 
@@ -41,7 +42,7 @@ ordenado, trocas = bubble_sort(vetor_teste.copy())
 
 print("\nTeste Bubble Sort")
 print("Vetor ordenado:", ordenado)
-print("Quantidade de trocas:", trocas)  
+print("Quantidade de trocas:", trocas)
 
 #Implementando o Merge Sort
 def merge_sort(vetor):
@@ -177,12 +178,79 @@ def executar_teste(nome_algoritmo, funcao_algoritmo, vetor):
 print("\nINICIANDO EXPERIMENTOS\n")
 
 algoritmos = [
-    ("Bubble Sort", bubble_sort)
+    ("Bubble Sort", bubble_sort),
+    ("Merge Sort", merge_sort),
+    ("Heap Sort", heap_sort)
 ]
 
-for nome, funcao in algoritmos:
-    executar_teste(
-        nome,
-        funcao,
-        vetores[100000]
-    )
+for tamanho in tamanhos:
+
+    print(f"\nTESTANDO VETOR COM {tamanho} ELEMENTOS\n")
+
+    for nome, funcao in algoritmos:
+
+        if nome == "Bubble Sort" and tamanho == 100000:
+
+            print("\n" + "=" * 60)
+            print("Algoritmo: Bubble Sort")
+            print("Tamanho do vetor: 100000")
+            print("Execução 1: N/C")
+            print("Execução 2: N/C")
+            print("Execução 3: N/C")
+            print("Tempo médio: N/A")
+            print("Desvio padrão: N/A")
+            print("Trocas/Movimentações: N/A")
+
+            continue
+
+        executar_teste(
+            nome,
+            funcao,
+            vetores[tamanho]
+        )
+
+# Grafico comparativo
+tamanhos_bubble = [1000, 10000]
+bubble = [0.067327, 9.179487]
+
+tamanhos_merge = [1000, 10000, 100000]
+merge = [0.002681, 0.067035, 0.687877]
+
+tamanhos_heap = [1000, 10000, 100000]
+heap = [0.003858, 0.080653, 0.923093]
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    tamanhos_bubble,
+    bubble,
+    marker='o',
+    label='Bubble Sort'
+)
+
+plt.plot(
+    tamanhos_merge,
+    merge,
+    marker='o',
+    label='Merge Sort'
+)
+
+plt.plot(
+    tamanhos_heap,
+    heap,
+    marker='o',
+    label='Heap Sort'
+)
+
+plt.title('Comparação de Tempo dos Algoritmos')
+plt.xlabel('Tamanho do Vetor')
+plt.ylabel('Tempo Médio (s)')
+
+plt.legend()
+
+plt.grid(True)
+
+plt.xscale('log')
+plt.yscale('log')
+
+plt.show()
